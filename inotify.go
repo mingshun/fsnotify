@@ -308,14 +308,11 @@ func newEvent(name string, mask uint32) Event {
 	if mask&syscall.IN_CREATE == syscall.IN_CREATE || mask&syscall.IN_MOVED_TO == syscall.IN_MOVED_TO {
 		e.Op |= Create
 	}
-	if mask&syscall.IN_DELETE_SELF == syscall.IN_DELETE_SELF || mask&syscall.IN_DELETE == syscall.IN_DELETE {
+	if mask&syscall.IN_DELETE_SELF == syscall.IN_DELETE_SELF || mask&syscall.IN_DELETE == syscall.IN_DELETE || mask&syscall.IN_MOVED_FROM == syscall.IN_MOVED_FROM {
 		e.Op |= Remove
 	}
 	if mask&syscall.IN_MODIFY == syscall.IN_MODIFY {
 		e.Op |= Write
-	}
-	if mask&syscall.IN_MOVE_SELF == syscall.IN_MOVE_SELF || mask&syscall.IN_MOVED_FROM == syscall.IN_MOVED_FROM {
-		e.Op |= Rename
 	}
 	if mask&syscall.IN_ATTRIB == syscall.IN_ATTRIB {
 		e.Op |= Chmod
